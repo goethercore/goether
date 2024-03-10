@@ -69,6 +69,7 @@ jobs:
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }} # Pass repository information
         with:
           tag_name: ${{ steps.release_notes.outputs.next_tag }}
           release_name: Release ${{ github.sha }}
