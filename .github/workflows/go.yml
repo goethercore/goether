@@ -1,25 +1,61 @@
-# This workflow will build a golang project
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
-
-name: Go
+name: Geth-Lite release workflow
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
   pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
 
 jobs:
 
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - name: Set up Go
-      uses: actions/setup-go@v4
-      with:
-        go-version: '1.20'
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.20'
 
-    - name: Build
-      run: go build -v ./...
+      - name: Build
+        run: go build -v ./...
+
+  release:
+    needs: [build]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push' && github.event.head_commit.message =~ '^Merge pull request'
+    steps:
+      - name: Generate Release Notes
+        id: release_notes
+        run: |
+          # Example script to generate release notes from commit messages and pull request descriptions
+          # This script assumes that release notes are generated from commits since the last release tag
+
+          # Get the previous release tag
+          PREVIOUS_TAG=$(git describe --tags --abbrev=0)
+
+          # Get the commit messages since the previous release tag
+          COMMIT_MESSAGES=$(git log --pretty=format:"%s" ${PREVIOUS_TAG}..HEAD)
+
+          # Get the pull request descriptions since the previous release tag
+          PULL_REQUESTS=$(curl -s "https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls?state=closed&base=main&sort=updated&direction=desc&per_page=100" | jq -r '.[] | select(.merged_at != null) | "- PR #" + (.number | tostring) + ": " + .title')
+
+          # Combine commit messages and pull request descriptions to generate release notes
+          RELEASE_NOTES=$(echo "${COMMIT_MESSAGES}\n${PULL_REQUESTS}")
+
+          echo "::set-output name=release_notes::${RELEASE_NOTES}"
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.sha }}
+          release_name: Release ${{ github.sha }}
+          body: ${{ steps.release_notes.outputs.release_notes }}
+          draft: false
+          prerelease: false
