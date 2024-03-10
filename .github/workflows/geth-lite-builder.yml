@@ -1,4 +1,4 @@
-name: Geth-Lite Release Workflow
+name: Geth-Lite Build Workflow
 
 on:
   push:
