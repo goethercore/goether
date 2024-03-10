@@ -34,7 +34,7 @@ jobs:
     steps:
       - name: Get current tag version
         id: get_current_tag
-        run: echo "::set-output name=tag_version::${{ env.TAG_VERSION }}"
+        run: echo "::set-output name=tag_version::${{ vars.TAG_VERSION }}"
 
       - name: Increment tag
         id: increment_tag
