@@ -13,7 +13,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Debug
+        run: |
+              pwd
+              ls -al
+              echo "GITHUB_REPOSITORY: $GITHUB_REPOSITORY"
+
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
       - name: Set up Go
         uses: actions/setup-go@v4
