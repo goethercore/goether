@@ -9,15 +9,14 @@ on:
       - main
 
 jobs:
-
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Debug
         run: |
-              pwd
-              ls -al
-              echo "GITHUB_REPOSITORY: $GITHUB_REPOSITORY"
+          pwd
+          ls -al
+          echo "GITHUB_REPOSITORY: $GITHUB_REPOSITORY"
 
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -25,7 +24,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
-          go-version: '1.20'
+          go-version: "1.20"
 
       - name: Build
         run: go build -v ./...
@@ -36,22 +35,35 @@ jobs:
       - name: Generate Release Notes
         id: release_notes
         run: |
-          # Example script to generate release notes from commit messages and pull request descriptions
-          # This script assumes that release notes are generated from commits since the last release tag
-
           # Get the previous release tag
           PREVIOUS_TAG=$(git describe --tags --abbrev=0)
 
-          # Get the commit messages since the previous release tag
-          COMMIT_MESSAGES=$(git log --pretty=format:"%s" ${PREVIOUS_TAG}..HEAD)
+          # Extract major, minor, and patch versions from the tag
+          IFS='.' read -r -a VERSION_PARTS <<< "$PREVIOUS_TAG"
+          MAJOR_VERSION="${VERSION_PARTS[0]}"
+          MINOR_VERSION="${VERSION_PARTS[1]}"
+          PATCH_VERSION="${VERSION_PARTS[2]}"
 
-          # Get the pull request descriptions since the previous release tag
-          PULL_REQUESTS=$(curl -s "https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls?state=closed&base=main&sort=updated&direction=desc&per_page=100" | jq -r '.[] | select(.merged_at != null) | "- PR #" + (.number | tostring) + ": " + .title')
+          # Increment the patch version
+          PATCH_VERSION=$((PATCH_VERSION + 1))
 
-          # Combine commit messages and pull request descriptions to generate release notes
-          RELEASE_NOTES=$(echo "${COMMIT_MESSAGES}\n${PULL_REQUESTS}")
+          # Check if patch version exceeds 9, if so, reset to 0 and increment the minor version
+          if [ "$PATCH_VERSION" -gt 9 ]; then
+            PATCH_VERSION=0
+            MINOR_VERSION=$((MINOR_VERSION + 1))
+          fi
 
-          echo "::set-output name=release_notes::${RELEASE_NOTES}"
+          # Check if minor version exceeds 9, if so, reset to 0 and increment the major version
+          if [ "$MINOR_VERSION" -gt 9 ]; then
+            MINOR_VERSION=0
+            MAJOR_VERSION=$((MAJOR_VERSION + 1))
+          fi
+
+          # Form the next version tag
+          NEXT_TAG="v$MAJOR_VERSION.$MINOR_VERSION.$PATCH_VERSION"
+          echo "Next version tag: $NEXT_TAG"
+
+          echo "::set-output name=next_tag::$NEXT_TAG"
 
       - name: Create Release
         id: create_release
@@ -59,8 +71,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
         with:
-          tag_name: ${{ github.sha }}
+          tag_name: ${{ steps.release_notes.outputs.next_tag }}
           release_name: Release ${{ github.sha }}
-          body: ${{ steps.release_notes.outputs.release_notes }}
           draft: false
           prerelease: false
