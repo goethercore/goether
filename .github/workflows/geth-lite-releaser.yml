@@ -54,7 +54,9 @@ jobs:
           echo "::set-output name=next_tag::$next_tag"
 
       - name: Update tag version
-        run: echo "TAG_VERSION=${{ steps.increment_tag.outputs.next_tag }}" >> $GITHUB_ENV
+        run: 
+         # echo "TAG_VERSION=${{ steps.increment_tag.outputs.next_tag }}" >> $GITHUB_ENV
+          gh variable set TAG_VERSION --body "${{ steps.increment_tag.outputs.next_tag}}"
 
       - name: Create Release
         id: create_release
