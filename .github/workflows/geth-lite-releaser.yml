@@ -30,9 +30,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - name: Get latest tag
+      - name: Get Latest Tag
         id: latest_tag
-        run: echo "::set-output name=tag::$(git describe --tags --abbrev=0 --always)"
+        run: |
+          latest_tag=$(git describe --tags `git rev-list --tags --max-count=1`)
 
       - name: Increment tag
         id: increment_tag
