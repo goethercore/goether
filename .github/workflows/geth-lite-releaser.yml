@@ -57,6 +57,7 @@ jobs:
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.BUILD_KEY}}
+          
         with:
           tag_name: ${{ steps.increment_tag.outputs.next_tag }}
           release_name: Release ${{ github.sha }}
