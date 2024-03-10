@@ -33,7 +33,9 @@ jobs:
       - name: Get Latest Tag
         id: latest_tag
         run: |
-          latest_tag=$(git describe --tags `git rev-list --tags --max-count=1`)
+          BRANCH=$(git rev-parse --abbrev-ref HEAD)
+          TAG=$(git describe --tags --abbrev=0 $BRANCH^ | grep $BRANCH)
+          echo "::set-output name=tag::$TAG"
 
       - name: Increment tag
         id: increment_tag
