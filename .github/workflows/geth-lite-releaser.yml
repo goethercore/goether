@@ -1,0 +1,64 @@
+name: Geth-Lite Release Workflow
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: "1.20"
+
+      - name: Build
+        run: go build -v ./...
+
+  release:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Get latest tag
+        id: latest_tag
+        run: echo "::set-output name=tag::$(git describe --abbrev=0 --tags)"
+
+      - name: Increment tag
+        id: increment_tag
+        run: |
+          current_tag=${{ steps.latest_tag.outputs.tag }}
+          if [[ -z $current_tag ]]; then
+           next_tag="v0.0.1"  # Base case for initial tag
+          else
+          major=$(echo $current_tag | cut -d. -f1 | cut -c2-)  # Remove 'v'
+          minor=$(echo $current_tag | cut -d. -f2)
+          patch=$(echo $current_tag | cut -d. -f3)
+          is_major_bump=$(git log -1 --pretty=%B | grep -q '\[MAJOR\]')  # Check for MAJOR keyword
+          if [[ $is_major_bump -eq 1 ]]; then
+            next_tag="v1.0.0"  # Set major version to 1
+          elif [ "$patch" == "9" ]; then
+            next_tag="v$major.$((minor + 1)).0"  # Increment minor
+          else
+            next_tag="v$major.$minor.$((patch + 1))"  # Increment patch
+           fi
+          fi
+           echo "::set-output name=next_tag::$next_tag"
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.BUILD_KEY}}
+        with:
+          tag_name: ${{ steps.increment_tag.outputs.next_tag }}
+          release_name: Release ${{steps.increment_tag.outputs.next_tag }}
+          draft: false
+          prerelease: false
