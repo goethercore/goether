@@ -62,6 +62,7 @@ jobs:
 
         with:
           tag_name: ${{ steps.increment_tag.outputs.next_tag }}
-          release_name: Release ${{ steps.increment_tag.outputs.next_tag }}
+          release_name: Release ${{steps.increment_tag.outputs.next_tag }}
+
           draft: false
           prerelease: false
