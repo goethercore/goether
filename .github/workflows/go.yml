@@ -46,7 +46,6 @@ jobs:
 
           # Increment the patch version
           PATCH_VERSION=$((PATCH_VERSION + 1))
-
           # Check if patch version exceeds 9, if so, reset to 0 and increment the minor version
           if [ "$PATCH_VERSION" -gt 9 ]; then
             PATCH_VERSION=0
