@@ -55,7 +55,7 @@ jobs:
 
       - name: Update tag version
         run: 
-          gh variable set TAG_VERSION --body "${{ steps.increment_tag.outputs.next_tag}}"
+          GITHUB_TOKEN variable set TAG_VERSION --body "${{ steps.increment_tag.outputs.next_tag}}"
         env:
             GITHUB_TOKEN: ${{ secrets.BUILD_KEY }}
 
