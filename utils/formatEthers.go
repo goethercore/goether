@@ -9,7 +9,6 @@ import (
 	hexutil "github.com/ayoseun/geth-lte/common/hexutil"
 )
 
-
 func FormatEther(hex string,precision ...int)(string, error) {
 
 	result, err := hexutil.DecodeBig(hex)
