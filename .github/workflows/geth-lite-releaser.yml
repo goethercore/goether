@@ -40,3 +40,4 @@ jobs:
           release_name: Release ${{ github.sha }}
           draft: false
           prerelease: false
+          token: ${{ secrets.GITHUB_TOKEN }}
