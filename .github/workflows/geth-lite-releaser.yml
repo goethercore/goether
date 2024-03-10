@@ -63,7 +63,7 @@ jobs:
         id: create_release
         uses: actions/create-release@v1
         with:
-          tag_name: ${{ steps.increment_tag.outputs.next_tag }}
+          tag_name: ${{ vars.TAG_VERSION }}
           release_name: Release ${{ github.sha }}
           draft: false
           prerelease: false
