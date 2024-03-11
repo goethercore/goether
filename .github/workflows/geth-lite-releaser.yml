@@ -34,11 +34,21 @@ jobs:
     steps:
 
 
+      - name: 'Get Previous tag'
+        id: previoustag
+        uses: "WyriHaximus/github-action-get-previous-tag@v1"
+        with:
+         fallback: 1.0.0 # Optional fallback tag to use when no tag can be found
+        #workingDirectory: another/path/where/a/git/repo/is/checked/out # Optional alternative working directory
+    
+
       - name: Initialize git repository
         run: git init
       - name: Get last tag
         id: get_tag
-        run: echo "::set-output name=tag::$(git describe --tags $(git rev-list --tags --max-count=1))"
+        run: 
+          echo "::set-output name=tag::$(git describe --tags $(git rev-list --tags --max-count=1))"
+          echo previoustag
 
       - name: Print last tag
         run: echo "Last tag is ${{ steps.get_tag.outputs.tag }}"
