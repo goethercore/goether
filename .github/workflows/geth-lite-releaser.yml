@@ -37,6 +37,10 @@ jobs:
         run: echo "tag_version=${{ vars.TAG_VERSION }}" >> $GITHUB_OUTPUT
           
 
+      - uses: actions/checkout@v3
+      - name: Get all tags
+        run: git tag | tee tags.txt 
+
       - name: Get Release Details
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Use a securely stored token
