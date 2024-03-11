@@ -55,18 +55,13 @@ jobs:
           echo "next_tag=$next_tag" >> $GITHUB_OUTPUT
 
       - name: Update tag version
-       
-        env:
-            GH_TOKEN: ${{ secrets.BUILD_KEY }}
-            OWNER: ${{ github.repository_owner }}
-            REPO: ${{ github.event.repository.name }}
-        run: gh variable set TAG_VERSION --body "1.2.3"
+        run: echo "TAG_VERSION=${{steps.increment_tag.outputs.next_tag }}" >> $GITHUB_STATE
 
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
         with:
-          tag_name: ${{ vars.TAG_VERSION }}
+          tag_name: ${{ steps.increment_tag.outputs.next_tag}}
           release_name: Release ${{ github.sha }}
           draft: false
           prerelease: false
