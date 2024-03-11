@@ -60,7 +60,7 @@ jobs:
             GH_TOKEN: ${{ secrets.BUILD_KEY }}
             OWNER: ${{ github.repository_owner }}
             REPO: ${{ github.event.repository.name }}
-        run: gh variable set MY_VAR --body "1.2.3"
+        run: gh variable set TAG_VERSION --body "1.2.3"
 
       - name: Create Release
         id: create_release
