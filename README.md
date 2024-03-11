@@ -1,7 +1,7 @@
 
 
 
-# Goether [![Go Reference](https://pkg.go.dev/badge/github.com/ayoseun/geth-lte@v0.0.0-20240207011905-a59fb5d8d2f9.svg)](https://pkg.go.dev/github.com/ayoseun/geth-lte@v0.0.0-20240207011905-a59fb5d8d2f9)
+# Goether [![Go Reference](https://pkg.go.dev/badge/github.com/goethercore/goether@v0.0.4.svg)](https://pkg.go.dev/github.com/goethercore/goether@v0.0.4)
 
 goether is a Go package designed to provide various functionalities related to EVM blockchains. This package offers capabilities such as interacting with contracts, exploring blocks, monitoring mempool transactions in real-time, and more. Whether you're building decentralized applications or exploring blockchain data, geth-lte aims to simplify your development process.
 
