@@ -32,6 +32,14 @@ jobs:
     env:
      GITHUB_TOKEN: ${{ github.token }}
     steps:
+      - uses: actions-ecosystem/action-get-latest-tag@v1
+        id: get-tag
+      - name: Print Last Tag
+        run: |
+            echo "Last Tag: ${{ steps.get-tag.outputs.tag }}"
+
+
+
       - name: Get current tag version
         id: get_current_tag
         run: |
