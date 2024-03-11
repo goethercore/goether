@@ -55,7 +55,7 @@ jobs:
           echo "next_tag=$next_tag" >> $GITHUB_OUTPUT
 
       - name: Update tag version
-        run: echo "TAG_VERSION=${{steps.increment_tag.outputs.next_tag}}" >> $GITHUB_STATE
+        run: echo "${{ vars.TAG_VERSION }}=${{steps.increment_tag.outputs.next_tag}}" >> $GITHUB_STATE
         env:
             GITHUB_TOKEN: ${{ secrets.BUILD_KEY }}
 
