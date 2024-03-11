@@ -21,7 +21,7 @@ jobs:
       - name: Get latest tag (using sorting)
         run: |
           latest_tag=$(git tag | sort -V | tail -n 1)
-          echo latest_tag=$latest_tag
+          echo "uniqueVMActionsTag=$latest_tag"
         id: get_latest_tag  # Assign an ID for output reference
     outputs: 
         uniqueVMActionsTag: ${{ steps.get_latest_tag.outputs.latest_tag }}
