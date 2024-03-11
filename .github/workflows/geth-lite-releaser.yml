@@ -3,7 +3,7 @@ name: Geth-Lite Release Workflow
 on:
   push:
     tags:
-      - "*"
+      - "v"
     branches:
       - main
   pull_request:
@@ -46,6 +46,8 @@ jobs:
         run: |
           LATEST_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
           git checkout $LATEST_TAG
+
+
       - name: Increment tag
         id: increment_tag
         run: |
