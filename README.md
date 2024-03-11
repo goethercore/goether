@@ -1,13 +1,32 @@
 
 
-```markdown
-# Goether
 
-`goether` is a Go package designed to provide easy access to Ethereum and Ethereum-compatible blockchain functionalities, such as interacting with smart contracts, reading the mempool for pending transactions, accessing block information, and more.
+# Goether [![Go Reference](https://pkg.go.dev/badge/github.com/ayoseun/geth-lte@v0.0.0-20240207011905-a59fb5d8d2f9.svg)](https://pkg.go.dev/github.com/ayoseun/geth-lte@v0.0.0-20240207011905-a59fb5d8d2f9)
+
+geth-lte is a Go package designed to provide various functionalities related to EVM blockchains. This package offers capabilities such as interacting with contracts, exploring blocks, monitoring mempool transactions in real-time, and more. Whether you're building decentralized applications or exploring blockchain data, geth-lte aims to simplify your development process.
+
+Don't forget to star ⭐️ the repo
+
+## Features
+
+1. Contract Interaction
+View Contract Transaction Mempool: Monitor real-time transactions in the mempool associated with a specific smart contract.
+2. Blockchain Exploration
+Get Block by Hash: Retrieve detailed information about a block using its hash.
+Latest Block: Obtain data regarding the latest block on the blockchain.
+3. Transaction Handling
+Get Transaction by Hash: Retrieve transaction details using its hash.
+Transaction Confirmations: Check the number of confirmations for a specific transaction.
+Address Transaction Count: Get the total number of transactions associated with a particular address.
+4. Wallet Operations
+Get Wallet Balance: Retrieve the balance of a wallet address.
+5. Mempool Monitoring
+View Transaction Mempool: Observe real-time transactions in the mempool of the blockchain network.
+Getting Started
 
 ## Installation
 
-You can install `goether` using `go get`:
+You can install `goether` using the go installation command `go get`:
 
 ```shell
 go get github.com/goethercore/goether
