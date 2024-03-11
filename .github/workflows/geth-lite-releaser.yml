@@ -35,8 +35,17 @@ jobs:
       - name: Get current tag version
         id: get_current_tag
         run: echo "tag_version=${{ vars.TAG_VERSION }}" >> $GITHUB_OUTPUT
-             echo "tags_version=${{ github.event.release.tag_name }}" >> $GITHUB_OUTPUT
+          
 
+      - name: Checkout
+        uses: actions/checkout@master
+        with:
+          fetch-depth: 0
+
+      - name: Checkout latest release tag
+        run: |
+          LATEST_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
+          git checkout $LATEST_TAG
       - name: Increment tag
         id: increment_tag
         run: |
