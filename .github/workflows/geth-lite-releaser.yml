@@ -30,30 +30,13 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     env:
-      GITHUB_TOKEN: ${{ github.token }}
+     GITHUB_TOKEN: ${{ github.token }}
     steps:
-      - name: Get tag
-        id: tag
-        uses: dawidd6/action-get-tag@v1
-      - name: Use tag
-        run: echo ${{steps.tag.outputs.tag}}
-
-      - name: Initialize git repository
-        run: git init
-      - name: Get last tag
-        id: get_tag
-        run:
-          echo "::set-output name=tag::$(git describe --tags $(git rev-list --tags --max-count=1))"
-          echo previoustag
-
-      - name: Print last tag
-        run: echo "Last tag is ${{ steps.get_tag.outputs.tag }}"
-
       - name: Get current tag version
         id: get_current_tag
-        run:
-          latest_tag=$(git describe --tags --exact-match 2>/dev/null || echo "")
-          echo "tag_version=$latest_tag" >> $GITHUB_OUTPUT
+        run: 
+
+          echo "tag_version=${{ vars.TAG_VERSION }}" >> $GITHUB_OUTPUT
 
       - name: Increment tag
         id: increment_tag
@@ -70,16 +53,25 @@ jobs:
               next_tag="v$major.$minor.$((patch + 1))"  # Increment patch
             fi
           fi
+          echo "::set-output name=next_tag::$next_tag"
           echo "next_tag=$next_tag" >> $GITHUB_OUTPUT
+
+
+      - name: Update tag version
+        env:
+         GITHUB_TOKEN: ${{ github.token }}
+        run: echo "TAG_VERSION=${{steps.increment_tag.outputs.next_tag }}" >> $GITHUB_STATE
 
       - name: Create Release
         id: create_release
-
+       
         uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+         GITHUB_TOKEN: ${{ github.token }}
         with:
+        
           tag_name: ${{ steps.increment_tag.outputs.next_tag}}
           release_name: Release ${{ steps.increment_tag.outputs.next_tag}}
           draft: false
           prerelease: false
+               
