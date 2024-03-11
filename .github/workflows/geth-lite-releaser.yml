@@ -11,6 +11,16 @@ on:
       - main
 
 jobs:
+
+  get_tags:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Fetch tags
+        run: git fetch --tags
+      - name: Get all tags (local)
+        run: git tag
+        
   build:
     runs-on: ubuntu-latest
     steps:
