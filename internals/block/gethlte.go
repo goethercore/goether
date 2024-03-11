@@ -3,9 +3,9 @@ package block
 import (
 	"encoding/json"
 
-	"github.com/ayoseun/geth-lite/internals"
-	"github.com/ayoseun/geth-lite/internals/block/block_core"
-	"github.com/ayoseun/geth-lite/types"
+	"github.com/goethercore/goether/internals"
+	"github.com/goethercore/goether/internals/block/block_core"
+	"github.com/goethercore/goether/types"
 )
 func GetGasPrice(rpc string) (string, error) {
 	//"https://bsc.meowrpc.com"

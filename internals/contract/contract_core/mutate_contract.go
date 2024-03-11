@@ -2,14 +2,14 @@ package contract_core
 
 import (
 	//"github.com/ayoseun/geth-lte/internals/address"
-	"github.com/ayoseun/geth-lite/rpc_calls"
+	"github.com/goethercore/goether/rpc_calls"
 
 	"encoding/json"
 	//"fmt"
 
 	//"encoding/hex"
 
-	"github.com/ayoseun/geth-lite/types"
+	"github.com/goethercore/goether/types"
 )
 
 func SendTransaction(rpc string, signedTx string) (string, error) {

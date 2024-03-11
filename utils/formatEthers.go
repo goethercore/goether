@@ -6,7 +6,7 @@ import (
 	"math/big"
 	"strings"
 
-	hexutil "github.com/ayoseun/geth-lite/common/hexutil"
+	hexutil "github.com/goethercore/goether/common/hexutil"
 )
 
 func FormatEther(hex string,precision ...int)(string, error) {

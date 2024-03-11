@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	//"fmt"
 
-	"github.com/ayoseun/geth-lite/rpc_calls"
-	"github.com/ayoseun/geth-lite/types" // Import the JSONRPC package
+	"github.com/goethercore/goether/rpc_calls"
+	"github.com/goethercore/goether/types" // Import the JSONRPC package
 )
 
 func GetTransactionByHash(rpc string, hash string) (types.TransactionResponse, error) {

@@ -1,4 +1,4 @@
-module github.com/Geth-Lite/geth-lite
+module github.com/goethercore/goether
 
 go 1.19
 
