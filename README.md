@@ -3,7 +3,7 @@
 
 # Goether [![Go Reference](https://pkg.go.dev/badge/github.com/ayoseun/geth-lte@v0.0.0-20240207011905-a59fb5d8d2f9.svg)](https://pkg.go.dev/github.com/ayoseun/geth-lte@v0.0.0-20240207011905-a59fb5d8d2f9)
 
-geth-lte is a Go package designed to provide various functionalities related to EVM blockchains. This package offers capabilities such as interacting with contracts, exploring blocks, monitoring mempool transactions in real-time, and more. Whether you're building decentralized applications or exploring blockchain data, geth-lte aims to simplify your development process.
+goether is a Go package designed to provide various functionalities related to EVM blockchains. This package offers capabilities such as interacting with contracts, exploring blocks, monitoring mempool transactions in real-time, and more. Whether you're building decentralized applications or exploring blockchain data, geth-lte aims to simplify your development process.
 
 Don't forget to star ⭐️ the repo
 
@@ -129,11 +129,12 @@ APIKEY=your-api-key
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit issues, feature requests, or pull requests.
+Contributions to geth-lte are welcome! If you encounter any issues or have suggestions for improvements, feel free to open an issue or submit a pull request on GitHub.
+
+- Active contributors
+  - [Ayoseun](github.com/ayoseun)
+
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-```
-
-This Markdown formatted README provides the same content as the previous template but in Markdown syntax.
+This project is licensed under the MIT License - see the LICENSE file for details.
