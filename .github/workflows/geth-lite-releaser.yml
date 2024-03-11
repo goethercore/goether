@@ -65,12 +65,14 @@ jobs:
         run: echo "TAG_VERSION=${{steps.increment_tag.outputs.next_tag }}" >> $GITHUB_STATE
 
       - name: Create Release
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+       
         id: create_release
         uses: actions/create-release@v1
         with:
+          
           tag_name: ${{ steps.increment_tag.outputs.next_tag}}
           release_name: Release ${{ github.sha }}
           draft: false
           prerelease: false
+        env:
+            GH_TOKEN: ${{ secrets.GH_TOKEN }}
