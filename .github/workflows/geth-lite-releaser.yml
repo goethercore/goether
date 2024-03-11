@@ -33,6 +33,9 @@ jobs:
      GITHUB_TOKEN: ${{ github.token }}
     steps:
 
+
+      - name: Initialize git repository
+        run: git init
       - name: Get last tag
         id: get_tag
         run: echo "::set-output name=tag::$(git describe --tags $(git rev-list --tags --max-count=1))"
