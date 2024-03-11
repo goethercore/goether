@@ -56,12 +56,12 @@ jobs:
 
       - name: Set environment variable
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: echo "MY_ENV_VARIABLE=new_value" >> $GITHUB_ENV
 
       - name: Update tag version
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: echo "TAG_VERSION=${{steps.increment_tag.outputs.next_tag }}" >> $GITHUB_STATE
 
       - name: Create Release
@@ -70,7 +70,7 @@ jobs:
        
         uses: actions/create-release@v1
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         with:
         
           tag_name: ${{ steps.increment_tag.outputs.next_tag}}
