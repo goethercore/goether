@@ -1,16 +1,17 @@
-Certainly! Below is the README content formatted in Markdown:
+
 
 ```markdown
-# geth-lite
+# Goether
 
-`geth-lte` is a Go package designed to provide easy access to Ethereum and Ethereum-compatible blockchain functionalities, such as interacting with smart contracts, reading the mempool for pending transactions, accessing block information, and more.
+`goether` is a Go package designed to provide easy access to Ethereum and Ethereum-compatible blockchain functionalities, such as interacting with smart contracts, reading the mempool for pending transactions, accessing block information, and more.
 
 ## Installation
 
-You can install `geth-lite` using `go get`:
+You can install `goether` using `go get`:
 
-```sh
-go get github.com/ayoseun/geth-lite
+```shell
+go get github.com/goethercore/goether
+
 ```
 
 ## Usage
@@ -18,7 +19,7 @@ go get github.com/ayoseun/geth-lite
 ### Initialization
 
 ```go
-import "github.com/ayoseun/geth-lte"
+import "github.com/goethercore/goether"
 
 func main() {
     geth_lte.Init()

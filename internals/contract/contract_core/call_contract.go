@@ -2,9 +2,9 @@ package contract_core
 
 import (
 	"encoding/json"
-	 "github.com/ayoseun/geth-lite/rpc_calls"
+	 "github.com/goethercore/goether/rpc_calls"
 
-	"github.com/ayoseun/geth-lite/types" // Import the JSONRPC package
+	"github.com/goethercore/goether/types" // Import the JSONRPC package
 )
 
 func Call(rpc string, msg types.ParamObject) (string, error) {

@@ -1,6 +1,6 @@
 package contract_core
 
-import ("github.com/ayoseun/geth-lite/types")
+import ("github.com/goethercore/goether/types")
 
 
 func ToCallArg(msg types.ParamObject) interface{} {

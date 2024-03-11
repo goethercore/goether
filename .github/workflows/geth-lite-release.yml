@@ -1,0 +1,85 @@
+name: Geth-Lite Release Workflow
+
+on:
+  push:
+    tags:
+      - "v"
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+
+  get_tags:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Fetch tags
+        run: git fetch --tags
+      - name: Get latest tag (using sorting)
+        run: |
+          latest_tag=$(git tag | sort -V | tail -n 1)
+          echo "uniqueVMActionsTag=$latest_tag"
+   
+
+  
+
+  build:
+    runs-on: ubuntu-latest
+    needs: get_tags
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          clean: true # Force a clean checkout to avoid cache issues
+          fetch-depth: 0 # Ensure entire history is fetched
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: "1.20"
+
+      - name: Build
+        run: go build -v ./...
+
+  release:
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+    
+      - uses: actions/checkout@v3
+      - name: Increment tag
+        id: increment_tag
+        run: |
+          git fetch --tags
+          current_tag=$(git tag | sort -V | tail -n 1)
+          if [[ -z $current_tag ]]; then
+            next_tag="v0.0.1"  # Base case for initial tag
+          else
+            current_tag="${current_tag/v/}"  # Remove 'v'
+            IFS='.' read -r major minor patch <<< "$current_tag"
+            if [ "$patch" == "9" ]; then
+              next_tag="v$major.$minor.$((patch + 1))"  # Increment minor
+            else
+              next_tag="v$major.$minor.$((patch + 1))"  # Increment patch
+            fi
+          fi
+          echo "next_tag=$next_tag" >> $GITHUB_OUTPUT
+      - name: Update tag version
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: echo "TAG_VERSION=${{steps.increment_tag.outputs.next_tag }}" >> $GITHUB_OUTPUT
+
+      - name: Create Release
+        id: create_release
+
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          tag_name: ${{ steps.increment_tag.outputs.next_tag}}
+          release_name: Release ${{ steps.increment_tag.outputs.next_tag}}
+          draft: false
+          prerelease: false
