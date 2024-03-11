@@ -21,7 +21,11 @@ jobs:
       - name: Get latest tag (using sorting)
         run: |
           latest_tag=$(git tag | sort -V | tail -n 1)
-          echo "latest_tag=$latest_tag" >> $GITHUB_OUTPUT
+          echo "latest_tag=$latest_tag"
+        id: get_latest_tag  # Assign an ID for output reference
+    outputs: 
+        uniqueVMActionsTag: ${{ steps.get_latest_tag.outputs.latest_tag }}
+        
          # Assign an ID for output reference
      
 
@@ -54,7 +58,7 @@ jobs:
       - name: Increment tag
         id: increment_tag
         run: |
-          echo "current_tag=${{needs.get_tags.outputs}}"
+          echo "current_tag=${{needs.get_tags.outputs.uniqueVMActionsTag}}"
           if [[ -z $current_tag ]]; then
             next_tag="v0.0.1"  # Base case for initial tag
           else
