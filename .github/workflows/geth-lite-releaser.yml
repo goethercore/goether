@@ -32,6 +32,16 @@ jobs:
     env:
      GITHUB_TOKEN: ${{ github.token }}
     steps:
+
+      - name: Update Environment Variable
+        uses: MandalAutomations/Update-Environment-Variable@v1
+        with:
+           Name: "Name of the variable"
+           Value: "Value of the variable"
+           EnvironmentName: "main"
+           RepoId: ${{ github.repository_id }}
+           Token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Get current tag version
         id: get_current_tag
         run: 
@@ -60,7 +70,7 @@ jobs:
       - name: Update tag version
         env:
          GITHUB_TOKEN: ${{ github.token }}
-        run: echo "TAG_VERSION=${{steps.increment_tag.outputs.next_tag }}" >> $GITHUB_STATE
+        run: echo "TAG_VERSION=${{steps.increment_tag.outputs.next_tag }}" >> $GITHUB_OUTPUT
 
       - name: Create Release
         id: create_release
