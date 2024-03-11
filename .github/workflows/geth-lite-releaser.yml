@@ -37,15 +37,14 @@ jobs:
         run: echo "tag_version=${{ vars.TAG_VERSION }}" >> $GITHUB_OUTPUT
           
 
-      - name: Checkout
-        uses: actions/checkout@master
-        with:
-          fetch-depth: 0
-
-      - name: Checkout latest release tag
+      - name: Get Release Details
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Use a securely stored token
         run: |
-          LATEST_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
-          git checkout $LATEST_TAG
+          LATEST_TAG=${{ steps.get_current_tag.outputs.next_tag }}
+          releases_url="https://api.github.com/repos/${{ github.repository }}/releases/tags/$LATEST_TAG"
+          curl -sSL -H "Authorization: token $GITHUB_TOKEN" "$releases_url" | jq -r '.name, .body'
+
 
 
       - name: Increment tag
