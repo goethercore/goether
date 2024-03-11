@@ -15,8 +15,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
-          clean: true  # Force a clean checkout to avoid cache issues
-          fetch-depth: 0  # Ensure entire history is fetched
+          clean: true # Force a clean checkout to avoid cache issues
+          fetch-depth: 0 # Ensure entire history is fetched
 
       - name: Set up Go
         uses: actions/setup-go@v4
@@ -53,6 +53,9 @@ jobs:
           fi
           echo "::set-output name=next_tag::$next_tag"
           echo "next_tag=$next_tag" >> $GITHUB_OUTPUT
+
+      - name: Set environment variable
+        run: echo "MY_ENV_VARIABLE=new_value" >> $GITHUB_ENV
 
       - name: Update tag version
         run: echo "TAG_VERSION=${{steps.increment_tag.outputs.next_tag }}" >> $GITHUB_STATE
