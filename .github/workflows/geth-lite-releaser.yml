@@ -33,13 +33,12 @@ jobs:
      GITHUB_TOKEN: ${{ github.token }}
     steps:
 
-      - name: Get current tag version
-       
-        id: get-tag
-        uses: actions-ecosystem/action-get-latest-tag@v1
-      - run: |
-          echo "Last Tag: ${{ steps.get-tag.outputs.tag }}"
-          echo "tag_version=$next_tag" >> $GITHUB_OUTPUT
+      - name: Get last tag
+        id: get_tag
+        run: echo "::set-output name=tag::$(git describe --tags $(git rev-list --tags --max-count=1))"
+
+      - name: Print last tag
+        run: echo "Last tag is ${{ steps.get_tag.outputs.tag }}"
 
       - name: Get current tag version
         id: get_current_tag
