@@ -2,9 +2,9 @@ package address_core
 
 import (
 	"encoding/json"
-	"github.com/ayoseun/geth-lite/common/hexutil"
-	"github.com/ayoseun/geth-lite/rpc_calls"
-	"github.com/ayoseun/geth-lite/types" // Import the JSONRPC package
+	"github.com/goethercore/goether/common/hexutil"
+	"github.com/goethercore/goether/rpc_calls"
+	"github.com/goethercore/goether/types" // Import the JSONRPC package
 )
 
 func GetAddressBalance(rpc string, address string) (string, error) {

@@ -4,7 +4,7 @@ import (
 	"errors"
 	"math/big"
 
-	"github.com/ayoseun/geth-lite/common"
+	"github.com/goethercore/goether/common"
 	
 )
 

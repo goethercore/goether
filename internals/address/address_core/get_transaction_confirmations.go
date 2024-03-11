@@ -6,7 +6,7 @@ import (
 
 	//"fmt"
 	
-	"github.com/ayoseun/geth-lite/common/hexutil"
+	"github.com/goethercore/goether/common/hexutil"
 
 )
 

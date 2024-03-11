@@ -10,8 +10,8 @@ import (
 	"os/signal"
 	"strings"
 
-	"github.com/ayoseun/geth-lite/internals/mempool/mempool_core"
-	"github.com/ayoseun/geth-lite/types"
+	"github.com/goethercore/goether/internals/mempool/mempool_core"
+	"github.com/goethercore/goether/types"
 )
 
 // TransactionsMemPool retrieves transaction data from the mempool using the provided RPC URL.

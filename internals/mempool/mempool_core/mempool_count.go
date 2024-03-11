@@ -2,9 +2,9 @@ package mempool_core
 
 import (
 	"encoding/json"
-	 "github.com/ayoseun/geth-lite/common/hexutil"
-	"github.com/ayoseun/geth-lite/rpc_calls"
-	"github.com/ayoseun/geth-lite/types" // Import the JSONRPC package
+	 "github.com/goethercore/goether/common/hexutil"
+	"github.com/goethercore/goether/rpc_calls"
+	"github.com/goethercore/goether/types" // Import the JSONRPC package
 )
 //Gets the total amount of transaction th the mempool
 func MemPoolTransactionsCount(rpc string) (types.MemPoolTXCount, error) {

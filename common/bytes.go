@@ -21,7 +21,7 @@ import (
 	"encoding/hex"
 	"errors"
 
-	"github.com/ayoseun/geth-lite/common/hexutil"
+	"github.com/goethercore/goether/common/hexutil"
 )
 
 // FromHex returns the bytes represented by the hexadecimal string s.
