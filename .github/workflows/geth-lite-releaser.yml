@@ -54,9 +54,7 @@ jobs:
         id: increment_tag
         run: |
           git fetch --tags
-          latest_tag=$(git tag | sort -V | tail -n 1)
-          echo "uniqueVMActionsTag=$latest_tag"
-          current_tag=${{needs.get_tags.outputs.uniqueVMActionsTag}}
+          current_tag=$(git tag | sort -V | tail -n 1)
           if [[ -z $current_tag ]]; then
             next_tag="v0.0.1"  # Base case for initial tag
           else
