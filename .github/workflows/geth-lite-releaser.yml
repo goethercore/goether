@@ -32,14 +32,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-     
-
       - name: Get current tag version
         id: get_current_tag
-        run: 
-          
-          echo "tag_version=${{ vars.TAG_VERSION }}" >> $GITHUB_OUTPUT
-          echo "${{ github.event.release.tag_name }}"
+        run: echo "tag_version=${{ vars.TAG_VERSION }}" >> $GITHUB_OUTPUT
+             echo "tags_version=${{ github.event.release.tag_name }}" >> $GITHUB_OUTPUT
 
       - name: Increment tag
         id: increment_tag
