@@ -33,14 +33,18 @@ jobs:
      GITHUB_TOKEN: ${{ github.token }}
     steps:
 
-      - name: Update Environment Variable
-        uses: MandalAutomations/Update-Environment-Variable@v1
+
+     - name: Fetch last tag
+        uses: actions/github-script@v6
         with:
-           Name: "Name of the variable"
-           Value: "Value of the variable"
-           EnvironmentName: "main"
-           RepoId: ${{ github.repository_id }}
-           Token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { data: tags } = await github.repos.listTags({
+              owner: 'Geth-Lite',
+              repo: 'geth-lite'
+            });
+            const lastTag = tags[0].name;
+            console.log('Last tag:', lastTag);
 
       - name: Get current tag version
         id: get_current_tag
