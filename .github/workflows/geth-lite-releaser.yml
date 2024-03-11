@@ -2,6 +2,8 @@ name: Geth-Lite Release Workflow
 
 on:
   push:
+    tags:
+      - "v*"
     branches:
       - main
   pull_request:
@@ -32,9 +34,8 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ github.token }}
     steps:
-      
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
       - name: Fetch tags
         run: git fetch --tags --force
       - name: Get current tag annotation
@@ -44,8 +45,6 @@ jobs:
         env:
           ANNOTATION: ${{ steps.tag-data.outputs.git-tag-annotation }}
         run: echo "$ANNOTATION"
-
-
 
       - name: Get current tag version
         id: get_current_tag
