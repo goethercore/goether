@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     env:
-      GH_TOKEN: ${{ secrets.BUILD_KEY }}
+      GH_TOKEN: ${{ secrets.GH_TOKEN }}
     steps:
       - name: Get current tag version
         id: get_current_tag
@@ -55,9 +55,13 @@ jobs:
           echo "next_tag=$next_tag" >> $GITHUB_OUTPUT
 
       - name: Set environment variable
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: echo "MY_ENV_VARIABLE=new_value" >> $GITHUB_ENV
 
       - name: Update tag version
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: echo "TAG_VERSION=${{steps.increment_tag.outputs.next_tag }}" >> $GITHUB_STATE
 
       - name: Create Release
