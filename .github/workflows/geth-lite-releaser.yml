@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     env:
-      GITHUB_TOKEN: ${{ secrets.BUILD_KEY }}
+      GH_TOKEN: ${{ secrets.BUILD_KEY }}
     steps:
       - name: Get current tag version
         id: get_current_tag
