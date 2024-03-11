@@ -34,7 +34,8 @@ jobs:
     steps:
       - name: Get current tag version
         id: get_current_tag
-        run: echo "::set-output name=tag_version::${{ vars.TAG_VERSION }}"
+        run: 
+          echo "tag_version=${{ vars.TAG_VERSION }}" >> $GITHUB_OUTPUT
 
       - name: Increment tag
         id: increment_tag
@@ -51,18 +52,22 @@ jobs:
               next_tag="v$major.$minor.$((patch + 1))"  # Increment patch
             fi
           fi
-          echo "::set-output name=next_tag::$next_tag"
           echo "next_tag=$next_tag" >> $GITHUB_OUTPUT
 
 
       - name: Update tag version
+        env:
+         GITHUB_TOKEN: ${{ github.token }}
         run: echo "TAG_VERSION=${{steps.increment_tag.outputs.next_tag }}" >> $GITHUB_STATE
 
       - name: Create Release
         id: create_release
        
         uses: actions/create-release@v1
+        env:
+         GITHUB_TOKEN: ${{ github.token }}
         with:
+        
           tag_name: ${{ steps.increment_tag.outputs.next_tag}}
           release_name: Release ${{ steps.increment_tag.outputs.next_tag}}
           draft: false
