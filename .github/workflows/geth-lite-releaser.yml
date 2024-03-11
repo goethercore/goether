@@ -32,14 +32,20 @@ jobs:
     env:
      GITHUB_TOKEN: ${{ github.token }}
     steps:
-      
 
-      
+      - name: Get current tag version
+        uses: actions-ecosystem/action-get-latest-tag@v1
+        id: get-tag
+      - run: |
+          echo "Last Tag: ${{ steps.get-tag.outputs.tag }}"
+          echo "tag_version=$next_tag" >> $GITHUB_OUTPUT
+
       - name: Get current tag version
         id: get_current_tag
-        run: |
-          tags=$(git describe --tags --all)
-          echo "$tags" 
+        run: 
+
+          latest_tag=$(git describe --tags --exact-match 2>/dev/null || echo "")
+           echo "tag_version=$latest_tag" >> $GITHUB_OUTPUT  
 
       - name: Increment tag
         id: increment_tag
