@@ -35,8 +35,8 @@ jobs:
       - name: Get current tag version
         id: get_current_tag
         run: |
-         tag=$(git describe --tags --exact-match 2>/dev/null || echo "")
-         echo "::set-output name=tag_version::$tag"  
+          tags=$(git describe --tags --all)
+          echo "$tags" 
 
       - name: Increment tag
         id: increment_tag
