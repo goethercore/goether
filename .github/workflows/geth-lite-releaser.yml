@@ -54,26 +54,17 @@ jobs:
           echo "::set-output name=next_tag::$next_tag"
           echo "next_tag=$next_tag" >> $GITHUB_OUTPUT
 
-      - name: Set environment variable
-        env:
-         GITHUB_TOKEN: ${{ github.token }}
-        run: echo "MY_ENV_VARIABLE=new_value" >> $GITHUB_ENV
 
       - name: Update tag version
-        env:
-         GITHUB_TOKEN: ${{ github.token }}
         run: echo "TAG_VERSION=${{steps.increment_tag.outputs.next_tag }}" >> $GITHUB_STATE
 
       - name: Create Release
         id: create_release
        
         uses: actions/create-release@v1
-        env:
-         GITHUB_TOKEN: ${{ github.token }}
         with:
-        
           tag_name: ${{ steps.increment_tag.outputs.next_tag}}
-          release_name: Release ${{ github.sha }}
+          release_name: Release ${{ steps.increment_tag.outputs.next_tag}}
           draft: false
           prerelease: false
                
