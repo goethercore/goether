@@ -34,10 +34,9 @@ jobs:
     steps:
       - name: Get current tag version
         id: get_current_tag
-        run: 
-         # echo "tag_version=${{ vars.TAG_VERSION }}" >> $GITHUB_OUTPUT
-          latest_tag=$(git describe --tags --exact-match 2>/dev/null || echo "")
-           echo "tag_version=$latest_tag" >> $GITHUB_OUTPUT  
+        run: |
+         tag=$(git describe --tags --exact-match 2>/dev/null || echo "")
+         echo "::set-output name=tag_version::$tag"  
 
       - name: Increment tag
         id: increment_tag
@@ -55,12 +54,6 @@ jobs:
             fi
           fi
           echo "next_tag=$next_tag" >> $GITHUB_OUTPUT
-
-
-      - name: Update tag version
-        env:
-         GITHUB_TOKEN: ${{ github.token }}
-        run: echo "vars.TAG_VERSION=${{steps.increment_tag.outputs.next_tag }}" >> $GITHUB_OUTPUT
 
       - name: Create Release
         id: create_release
