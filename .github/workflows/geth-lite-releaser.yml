@@ -32,9 +32,14 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ github.token }}
     steps:
-      - name: NewTag
+      - name: Get tag
         id: tag
-        uses: JinoArch/get-latest-tag@latest
+        uses: devops-actions/action-get-tag@v1.0.1
+        with:
+          strip_v: true # Optional: Remove 'v' character from version
+
+      - name: Use tag
+        run: echo ${{steps.tag.outputs.tag}}
 
       - name: Get current tag version
         id: get_current_tag
