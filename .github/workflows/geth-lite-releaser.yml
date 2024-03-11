@@ -21,8 +21,6 @@ jobs:
       - name: Get latest tag (using sorting)
         run: echo $(git tag | sort -V | tail -n 1)  # Capture latest tag using sorting & tail
         id: get_latest_tag  # Assign an ID for output reference
-    outputs:
-      latest_tag: ${{ steps.get_latest_tag.outputs }}  # Reference output from previous step
   
 
   build:
