@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 
 	"net/url"
-	"github.com/ayoseun/geth-lte/types"
+	"github.com/ayoseun/geth-lite/types"
 	"github.com/gorilla/websocket"
 )
 

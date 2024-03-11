@@ -1,16 +1,16 @@
 Certainly! Below is the README content formatted in Markdown:
 
 ```markdown
-# geth-lte
+# geth-lite
 
 `geth-lte` is a Go package designed to provide easy access to Ethereum and Ethereum-compatible blockchain functionalities, such as interacting with smart contracts, reading the mempool for pending transactions, accessing block information, and more.
 
 ## Installation
 
-You can install `geth-lte` using `go get`:
+You can install `geth-lite` using `go get`:
 
 ```sh
-go get github.com/ayoseun/geth-lte
+go get github.com/ayoseun/geth-lite
 ```
 
 ## Usage

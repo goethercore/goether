@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	//"fmt"
 
-	"github.com/ayoseun/geth-lte/rpc_calls"
-	"github.com/ayoseun/geth-lte/types" // Import the JSONRPC package
+	"github.com/ayoseun/geth-lite/rpc_calls"
+	"github.com/ayoseun/geth-lite/types" // Import the JSONRPC package
 )
 
 func GetBlockByHash(rpc string, hash string) (types.BlockResponse, error) {

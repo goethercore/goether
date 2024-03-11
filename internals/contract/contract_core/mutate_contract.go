@@ -2,14 +2,14 @@ package contract_core
 
 import (
 	//"github.com/ayoseun/geth-lte/internals/address"
-	"github.com/ayoseun/geth-lte/rpc_calls"
+	"github.com/ayoseun/geth-lite/rpc_calls"
 
 	"encoding/json"
 	//"fmt"
 
 	//"encoding/hex"
 
-	"github.com/ayoseun/geth-lte/types"
+	"github.com/ayoseun/geth-lite/types"
 )
 
 func SendTransaction(rpc string, signedTx string) (string, error) {

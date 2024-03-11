@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"net/http"
-	"github.com/ayoseun/geth-lte/types"
+	"github.com/ayoseun/geth-lite/types"
 )
 
 // GetBalanceRequest sends a JSON-RPC request to the specified URL
