@@ -34,8 +34,9 @@ jobs:
     steps:
 
       - name: Get current tag version
-        uses: actions-ecosystem/action-get-latest-tag@v1
+       
         id: get-tag
+        uses: actions-ecosystem/action-get-latest-tag@v1
       - run: |
           echo "Last Tag: ${{ steps.get-tag.outputs.tag }}"
           echo "tag_version=$next_tag" >> $GITHUB_OUTPUT
