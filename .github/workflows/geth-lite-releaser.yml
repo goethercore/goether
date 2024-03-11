@@ -54,7 +54,7 @@ jobs:
       - name: Increment tag
         id: increment_tag
         run: |
-          current_tag=${{needs.get_tags.outputs.latest_tag}}
+          echo "current_tag=${{needs.get_tags.outputs}}"
           if [[ -z $current_tag ]]; then
             next_tag="v0.0.1"  # Base case for initial tag
           else
