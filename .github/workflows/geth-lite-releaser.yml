@@ -2,6 +2,8 @@ name: Geth-Lite Release Workflow
 
 on:
   push:
+    tags:
+      - '*'
     branches:
       - main
   pull_request:
