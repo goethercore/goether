@@ -22,7 +22,7 @@ go get github.com/goethercore/goether
 import "github.com/goethercore/goether"
 
 func main() {
-    geth_lte.Init()
+    goether.Init()
 }
 ```
 
@@ -31,73 +31,73 @@ func main() {
 #### 1. Reading Contract Transactions from Mempool
 
 ```go
-geth_lte.ContractmemPool()
+goether.ContractmemPool()
 ```
 
 #### 2. Streaming Mempool Transactions
 
 ```go
-geth_lte.StreamMemPool()
+goether.StreamMemPool()
 ```
 
 #### 3. Retrieving User Contract Information
 
 ```go
-geth_lte.UserContract()
+goether.UserContract()
 ```
 
 #### 4. Sending Native Tokens
 
 ```go
-geth_lte.SendCoin()
+goether.SendCoin()
 ```
 
 #### 5. Reading Mempool with Status
 
 ```go
-geth_lte.MemPoolWithStatus()
+goether.MemPoolWithStatus()
 ```
 
 #### 6. Retrieving Block Information
 
 ```go
-geth_lte.BlockByHash()
+goether.BlockByHash()
 ```
 
 #### 7. Retrieving Transaction Information
 
 ```go
-geth_lte.GetTransactionByHash()
+goether.GetTransactionByHash()
 ```
 
 #### 8. Retrieving Transaction Confirmation
 
 ```go
-geth_lte.GetTransactionConfirmation()
+goether.GetTransactionConfirmation()
 ```
 
 #### 9. Retrieving Block Transaction Counts
 
 ```go
-geth_lte.GetBlockTransactionCounts()
+goether.GetBlockTransactionCounts()
 ```
 
 #### 10. Retrieving Latest Block
 
 ```go
-geth_lte.LatestBlock()
+goether.LatestBlock()
 ```
 
 #### 11. Retrieving Address Transactions Count
 
 ```go
-geth_lte.AddressTransactionCount()
+goether.AddressTransactionCount()
 ```
 
 #### 12. Retrieving Wallet Balance
 
 ```go
-geth_lte.GetWalletBalance()
+goether.GetWalletBalance()
 ```
 
 ## Configuration
