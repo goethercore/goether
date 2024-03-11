@@ -33,14 +33,11 @@ jobs:
       GITHUB_TOKEN: ${{ github.token }}
     steps:
       
-      - uses: nimblehq/branch-tag-action@v1
-        id: extract
+      - uses: ypicard/get-branch-name-github-action@v1
+        id: mm
+      - run: echo mm
 
-    # Use the output/env from the `extract` step
-      - name: Print the values
-        run: |
-           echo "The branch tag is ${{ steps.extract.outputs.branch_tag }}"
-           echo "or ${{ env.BRANCH_TAG }}"
+
 
       - name: Get current tag version
         id: get_current_tag
