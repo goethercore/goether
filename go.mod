@@ -1,4 +1,4 @@
-module github.com/ayoseun/geth-lite
+module github.com/Geth-Lite/geth-lite
 
 go 1.19
 
