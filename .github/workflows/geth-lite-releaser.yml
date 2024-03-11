@@ -32,17 +32,15 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ github.token }}
     steps:
-      - name: Fetch last tag
-        uses: actions/github-script@v6
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const { data: tags } = await github.repos.listTags({
-             owner: 'Geth-Lite',
-             repo: 'geth-lite'
-            });
-            const lastTag = tags[0].name;
-            console.log('Last tag:', lastTag);
+      
+      - uses: nimblehq/branch-tag-action@v1
+        id: extract
+
+    # Use the output/env from the `extract` step
+      - name: Print the values
+        run: |
+           echo "The branch tag is ${{ steps.extract.outputs.branch_tag }}"
+           echo "or ${{ env.BRANCH_TAG }}"
 
       - name: Get current tag version
         id: get_current_tag
