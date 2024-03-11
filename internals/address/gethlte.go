@@ -7,12 +7,12 @@ import (
 	"log"
 	"math/big"
 
-	"github.com/ayoseun/geth-lte/common/hexutil"
-	"github.com/ayoseun/geth-lte/internals"
-	"github.com/ayoseun/geth-lte/internals/address/address_core"
-	"github.com/ayoseun/geth-lte/internals/block/block_core"
-	"github.com/ayoseun/geth-lte/types"
-	"github.com/ayoseun/geth-lte/utils"
+	"github.com/ayoseun/geth-lite/common/hexutil"
+	"github.com/ayoseun/geth-lite/internals"
+	"github.com/ayoseun/geth-lite/internals/address/address_core"
+	"github.com/ayoseun/geth-lite/internals/block/block_core"
+	"github.com/ayoseun/geth-lite/types"
+	"github.com/ayoseun/geth-lite/utils"
 	"github.com/ethereum/go-ethereum/ethclient"
 
 )

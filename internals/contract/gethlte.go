@@ -2,9 +2,9 @@ package contract
 
 import (
 	"fmt"
-	"github.com/ayoseun/geth-lte/common/eth_crypto"
-	"github.com/ayoseun/geth-lte/types"
-	"github.com/ayoseun/geth-lte/internals/contract/contract_core"
+	"github.com/ayoseun/geth-lite/common/eth_crypto"
+	"github.com/ayoseun/geth-lite/types"
+	"github.com/ayoseun/geth-lite/internals/contract/contract_core"
 
 )
 
