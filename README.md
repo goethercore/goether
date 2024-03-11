@@ -1,4 +1,4 @@
-Certainly! Below is the README content formatted in Markdown:
+
 
 ```markdown
 # geth-lite
@@ -9,8 +9,9 @@ Certainly! Below is the README content formatted in Markdown:
 
 You can install `geth-lite` using `go get`:
 
-```sh
+```shell
 go get github.com/ayoseun/geth-lite
+
 ```
 
 ## Usage
