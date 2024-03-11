@@ -19,10 +19,11 @@ jobs:
       - name: Fetch tags
         run: git fetch --tags
       - name: Get latest tag (using sorting)
-        run: echo $(git tag | sort -V | tail -n 1)  # Capture latest tag using sorting & tail
-        id: get_latest_tag  # Assign an ID for output reference
-        env:
-          GITHUB_OUTPUT: ${{ github.workspace }}/.github/latest_tag
+        run: |
+          latest_tag=$(git tag | sort -V | tail -n 1)
+          echo "latest_tag=$latest_tag" >> $GITHUB_OUTPUT
+         # Assign an ID for output reference
+     
 
   
 
@@ -48,16 +49,12 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build,get_tags]
     steps:
-      - name: Get current tag version
-        id: get_current_tag
-        run: echo "tag_version=$(cat $GITHUB_WORKSPACE/.github/latest_tag)" >> $GITHUB_ENV
-          
-
-
+    
+    
       - name: Increment tag
         id: increment_tag
         run: |
-          current_tag=${{ steps.get_current_tag.outputs.tag_version }}
+          current_tag=${{needs.get_tags.outputs.latest_tag}}
           if [[ -z $current_tag ]]; then
             next_tag="v0.0.1"  # Base case for initial tag
           else
