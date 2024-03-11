@@ -35,7 +35,9 @@ jobs:
       - name: Get current tag version
         id: get_current_tag
         run: 
-          echo "tag_version=${{ vars.TAG_VERSION }}" >> $GITHUB_OUTPUT
+         # echo "tag_version=${{ vars.TAG_VERSION }}" >> $GITHUB_OUTPUT
+          latest_tag=$(git describe --tags --exact-match 2>/dev/null || echo "")
+           echo "tag_version=$latest_tag" >> $GITHUB_OUTPUT  
 
       - name: Increment tag
         id: increment_tag
