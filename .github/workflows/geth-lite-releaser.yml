@@ -52,9 +52,10 @@ jobs:
             fi
           fi
           echo "::set-output name=next_tag::$next_tag"
+          echo "next_tag=$next_tag" >> $GITHUB_OUTPUT
 
       - name: Update tag version
-        run: echo "TAG_VERSION=${{steps.increment_tag.outputs}}" >> $GITHUB_STATE
+        run: echo "TAG_VERSION=${{steps.increment_tag.outputs.next_tag}}" >> $GITHUB_STATE
         env:
             GITHUB_TOKEN: ${{ secrets.BUILD_KEY }}
 
