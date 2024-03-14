@@ -7,6 +7,11 @@ goether is a Go package designed to provide various functionalities related to E
 
 Don't forget to star ⭐️ the repo
 
+## Documentation
+
+Visit the docs to learn more (goether docs)[https://goethercore.github.io/docs/]
+
+
 ## Features
 
 1. Contract Interaction
