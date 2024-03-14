@@ -9,7 +9,7 @@ Don't forget to star ⭐️ the repo
 
 ## Documentation
 
-Visit the docs to learn more (goether docs)[https://goethercore.github.io/docs/]
+Visit the docs to learn more [goether docs](https://goethercore.github.io/docs/)
 
 
 ## Features
