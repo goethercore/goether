@@ -3,9 +3,9 @@ package address_core
 import (
 	"encoding/json"
 
-	"github.com/goethercore/goether/common/hexutil"
-	rpccalls "github.com/goethercore/goether/rpc_calls"
+	"github.com/goethercore/goether/rpc_calls"
 	"github.com/goethercore/goether/types" // Import the JSONRPC package
+	"github.com/goethercore/goether/utils"
 )
 
 func GetAddressTXCount(rpc string, address string) (string, error) {
@@ -46,7 +46,7 @@ func GetAddressTXCount(rpc string, address string) (string, error) {
 		return "", err
 	}
 
-	result, err := hexutil.DecodeBig(parsedResponse.Result)
+	result, err := utils.DecodeBig(parsedResponse.Result)
 	if err != nil {
 		return "", err
 	}

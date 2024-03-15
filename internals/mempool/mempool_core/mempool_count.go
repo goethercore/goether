@@ -2,10 +2,12 @@ package mempool_core
 
 import (
 	"encoding/json"
-	 "github.com/goethercore/goether/common/hexutil"
+
 	"github.com/goethercore/goether/rpc_calls"
 	"github.com/goethercore/goether/types" // Import the JSONRPC package
+	"github.com/goethercore/goether/utils"
 )
+
 //Gets the total amount of transaction th the mempool
 func MemPoolTransactionsCount(rpc string) (types.MemPoolTXCount, error) {
     // Define the URL you want to send a POST request to
@@ -39,8 +41,8 @@ func MemPoolTransactionsCount(rpc string) (types.MemPoolTXCount, error) {
      
     }
    // Format the "Pending" and "Queued" values
-   parsedResponse.Result.Pending,err = hexutil.FormatHex(parsedResponse.Result.Pending)
-   parsedResponse.Result.Queued,err = hexutil.FormatHex(parsedResponse.Result.Queued)
+   parsedResponse.Result.Pending,err = utils.FormatHex(parsedResponse.Result.Pending)
+   parsedResponse.Result.Queued,err = utils.FormatHex(parsedResponse.Result.Queued)
 
 
     return parsedResponse, nil

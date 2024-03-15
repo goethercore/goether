@@ -2,9 +2,10 @@ package block_core
 
 import (
 	"encoding/json"
-	"github.com/goethercore/goether/common/hexutil"
+
 	"github.com/goethercore/goether/rpc_calls"
 	"github.com/goethercore/goether/types" // Import the JSONRPC package
+	"github.com/goethercore/goether/utils"
 )
 
 func GetBlockTXCountByHash(rpc string, hash string) (string, error) {
@@ -47,7 +48,7 @@ func GetBlockTXCountByHash(rpc string, hash string) (string, error) {
 		return "", err
 	}
 
-	result, err := hexutil.DecodeBig(parsedResponse.Result)
+	result, err := utils.DecodeBig(parsedResponse.Result)
 	if err != nil {
 		return "", err
 	}

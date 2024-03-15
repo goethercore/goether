@@ -1,20 +1,29 @@
-package interfaces
+package types
 
 import (
 	"errors"
 	"math/big"
-
-	"github.com/goethercore/goether/common"
 	
 )
+
+
+
+// Lengths of hashes and addresses in bytes.
+const (
+	// HashLength is the expected length of the hash
+	HashLength = 32
+	// AddressLength is the expected length of the address
+	AddressLength = 20
+)
+
 
 // NotFound is returned by API methods if the requested item does not exist.
 var NotFound = errors.New("not found")
 
 // CallMsg contains parameters for contract calls.
 type CallMsg struct {
-	From      common.Address  // the sender of the 'transaction'
-	To        common.Address // the destination contract (nil for contract creation)
+	From      Address  // the sender of the 'transaction'
+	To        Address // the destination contract (nil for contract creation)
 	Gas       uint64          // if 0, the call executes with near-infinite gas
 	GasPrice  *big.Int        // wei <-> gas exchange ratio
 	GasFeeCap *big.Int        // EIP-1559 fee cap per gas.
@@ -30,6 +39,11 @@ type AccessList []AccessTuple
 
 // AccessTuple is the element type of an access list.
 type AccessTuple struct {
-	Address     common.Address `json:"address"     gencodec:"required"`
-	StorageKeys []common.Hash  `json:"storageKeys" gencodec:"required"`
+	Address     Address `json:"address"     gencodec:"required"`
+	StorageKeys Hash  `json:"storageKeys" gencodec:"required"`
 }
+
+// Hash represents the 32 byte Keccak256 hash of arbitrary data.
+type Hash [HashLength]byte
+// Address represents the 20 byte address of an Ethereum account.
+type Address [AddressLength]byte

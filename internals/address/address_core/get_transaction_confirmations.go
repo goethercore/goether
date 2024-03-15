@@ -1,13 +1,9 @@
 package address_core
 
 import (
-
 	"fmt"
 
-	//"fmt"
-	
-	"github.com/goethercore/goether/common/hexutil"
-
+	"github.com/goethercore/goether/utils"
 )
 
 func GetTransactionConfirmation(rpc string, hash string){
@@ -21,7 +17,7 @@ func GetTransactionConfirmation(rpc string, hash string){
 
 
 
-  blckNum,err:=  hexutil.DecodeBig(tx.Result.BlockNumber)
+  blckNum,err:=  utils.DecodeBig(tx.Result.BlockNumber)
 
   
 

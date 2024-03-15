@@ -2,7 +2,7 @@ package internals
 
 import (
 	"encoding/json"
-	"github.com/goethercore/goether/common/hexutil"
+	"github.com/goethercore/goether/utils"
 	"github.com/goethercore/goether/rpc_calls"
 	"github.com/goethercore/goether/types" // Import the JSONRPC package
 )
@@ -47,7 +47,7 @@ request := types.JSONRPCRequest{
 		return "", err
 	}
 
-	result, err := hexutil.DecodeBig(parsedResponse.Result)
+	result, err := utils.DecodeBig(parsedResponse.Result)
 	if err != nil {
 		return "", err
 	}
@@ -56,7 +56,7 @@ request := types.JSONRPCRequest{
 	// precision := 2
 	resultStr := result.String()
 	//setting the precision to 18 is not compulsory, buut it defaults to 18 
-	ethbalance, err := hexutil.DivideLargeNumbers(resultStr, denominatorStr,18)
+	ethbalance, err := utils.DivideLargeNumbers(resultStr, denominatorStr,18)
 	if err != nil {
 		return "", err
 	}

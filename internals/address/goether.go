@@ -6,8 +6,6 @@ import (
 	"fmt"
 	"log"
 	"math/big"
-
-	"github.com/goethercore/goether/common/hexutil"
 	"github.com/goethercore/goether/internals"
 	"github.com/goethercore/goether/internals/address/address_core"
 	"github.com/goethercore/goether/internals/block/block_core"
@@ -16,6 +14,18 @@ import (
 	"github.com/ethereum/go-ethereum/ethclient"
 
 )
+
+
+func CreateWallet()( error,[]byte){
+	 wallet,err:= address_core.GenerateAddress()
+
+	if err != nil {
+		// Return an error if there's a problem fetching the balance
+		return nil, err
+	}
+
+	return wallet,err
+}
 
 func GetBalance(rpc string, walletAddress string) ([]byte, error) {
 	//"https://bsc.meowrpc.com"
@@ -101,7 +111,7 @@ func GetTransactionConfirmations(rpc string, hash string) ([]byte, error) {
 		return nil, err
 	}
 
-	blckNum, err := hexutil.DecodeBig(tx.Result.BlockNumber)
+	blckNum, err := utils.DecodeBig(tx.Result.BlockNumber)
 	if err != nil {
 		return nil, err
 	}

@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"github.com/goethercore/goether/common/hexutil"
 	"github.com/goethercore/goether/internals/address"
 	"github.com/goethercore/goether/internals/block"
 	"github.com/goethercore/goether/internals/contract"
@@ -43,7 +42,7 @@ func ContractmemPool() {
 		var poolData types.MempoolData
 		if err := json.Unmarshal([]byte(value), &poolData); err != nil {
 		}
-		amount,_ := hexutil.ConvertToEtherDecimal(poolData.Value, 18)
+		amount,_ := utils.ConvertToEtherDecimal(poolData.Value, 18)
 
 		log.Printf("Found a transaction: Amount: %s from: %s to %s\n", amount, poolData.From, poolData.To)
 	}
@@ -56,7 +55,7 @@ func StreamMemPool() {
 		var poolData types.MempoolData
 		if err := json.Unmarshal([]byte(value), &poolData); err != nil {
 		}
-		amount, err := hexutil.DecodeBig(poolData.Value)
+		amount, err := utils.DecodeBig(poolData.Value)
 		if err != nil {
 			continue
 		}
