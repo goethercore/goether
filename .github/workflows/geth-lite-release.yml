@@ -53,13 +53,15 @@ jobs:
           if [[ -z $current_tag ]]; then
             next_tag="v0.0.1"  # Base case for initial tag
           else
-          current_tag=$(git tag | sort -V | tail -n 1)
-          if [[ -z $current_tag ]]; then
-            next_tag="v0.0.1"  # Base case for initial tag
-          else
             current_tag="${current_tag/v/}"  # Remove 'v'
             IFS='.' read -r major minor patch <<< "$current_tag"
-            next_tag="v$major.$((minor + 1))"."$((patch + 1))"  # Increment both minor and patch
+            if [ "$patch" == "9" ]; then
+              next_tag="v$major.$((minor + 1)).0"  # Increment minor
+              if [ "$minor" == "9" ]; then
+              next_tag="v$((major + 1)).0.0"  # Increment minor
+            else
+              next_tag="v$major.$minor.$((patch + 1))"  # Increment patch
+            fi
           fi
           echo "next_tag=$next_tag" >> $GITHUB_OUTPUT
       - name: Update tag version

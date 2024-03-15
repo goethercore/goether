@@ -2,7 +2,7 @@ package contract
 
 import (
 	"fmt"
-	"github.com/goethercore/goether/common/eth_crypto"
+	"github.com/goethercore/goether/eth_crypto"
 	"github.com/goethercore/goether/types"
 	"github.com/goethercore/goether/internals/contract/contract_core"
 

@@ -4,7 +4,6 @@ import (
 	"encoding/hex"
 	"errors"
 	"strings"
-
 	"golang.org/x/crypto/sha3"
 )
 
