@@ -13,7 +13,7 @@ func Call(rpc string, abi map[string]string, contractAddress string,address stri
 
 	functionName := data["functionName"].(string)
 	args := data["args"].([]interface{})
-	fmt.Println(args)
+
 	ethereumData, err := ethcrypto.GenerateEthereumData(&args, functionName, abi)
 	if err != nil {
 		fmt.Println("Error:", err)
@@ -29,6 +29,30 @@ func Call(rpc string, abi map[string]string, contractAddress string,address stri
 	}
 	// Call the BalanceOf function
 	resp, err := contract_core.Call(rpc, msg)
+	if err != nil {
+
+	}
+
+	
+
+	return resp, nil
+
+}
+
+func Mutate(rpcURL string,privateKey string,  ABI map[string]string, contractAddress string, data map[string]interface{}) (string, error) {
+	// Define the RPC string
+
+	functionName := data["functionName"].(string)
+	args := data["args"].([]interface{})
+
+	ethereumData, err := ethcrypto.GenerateEthereumData(&args, functionName, ABI)
+	if err != nil {
+		fmt.Println("Error:", err)
+
+	}
+
+	// Call the BalanceOf function
+	resp, err := contract_core.Mutate(rpcURL,privateKey,ethereumData,contractAddress)
 	if err != nil {
 
 	}

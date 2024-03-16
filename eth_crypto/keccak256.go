@@ -5,6 +5,7 @@ import (
 	"errors"
 	"strings"
 	"golang.org/x/crypto/sha3"
+	"github.com/goethercore/goether/types" // Import the JSONRPC package
 )
 
 // calculateFunctionHash calculates the Keccak-256 hash of the given function signature
@@ -84,4 +85,19 @@ func encodeArgument(arg interface{}) (string, error) {
 		// Unsupported type
 		return "", errors.New("unsupported argument type")
 	}
+}
+
+// NewKeccakState creates a new KeccakState
+func NewKeccakState() types.KeccakState {
+	return sha3.NewLegacyKeccak256().(types.KeccakState)
+}
+// Keccak256 calculates and returns the Keccak256 hash of the input data.
+func Keccak256(data ...[]byte) []byte {
+	b := make([]byte, 32)
+	d := NewKeccakState()
+	for _, b := range data {
+		d.Write(b)
+	}
+	d.Read(b)
+	return b
 }

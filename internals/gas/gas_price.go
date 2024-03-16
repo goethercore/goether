@@ -1,21 +1,24 @@
-package address_core
+package gas
 
 import (
 	"encoding/json"
+	"fmt"
 
 	"github.com/goethercore/goether/rpc_calls"
 	"github.com/goethercore/goether/types" // Import the JSONRPC package
 	"github.com/goethercore/goether/utils"
 )
 
-func GetAddressTXCount(rpc string, address string) (string, error) {
+func GasPrice(rpc string) (string, error) {
+	//"https://bsc.meowrpc.com"
 	// Define the URL you want to send a POST request to
 	url := rpc
-	// Create a JSON-RPC request struct
+
+	// Create a JSON-RPC request struct with an empty array for Params
 	request := types.JSONRPCRequest{
 		JSONRPC: "2.0",
-		Method:  "eth_getTransactionCount",
-		Params:  []interface{}{address, "latest"},
+		Method:  "eth_gasPrice",
+		Params:  []interface{}{},
 		ID:      123,
 	}
 
@@ -29,16 +32,8 @@ func GetAddressTXCount(rpc string, address string) (string, error) {
 	}
 
 
-
-	// Define a struct to represent the JSON response
-	type JSONResponse struct {
-		JSONRPC string `json:"jsonrpc"`
-		ID      int    `json:"id"`
-		Result  string `json:"result"`
-	}
-
 	// Create a variable to hold the JSON response
-	var parsedResponse JSONResponse
+	var parsedResponse types.JSONRPCResult
 
 	// Parse the JSON response into the struct
 	err = json.Unmarshal([]byte(response), &parsedResponse)
@@ -50,12 +45,7 @@ func GetAddressTXCount(rpc string, address string) (string, error) {
 	resultStr,_ := utils.ConvertHexToBigInt( parsedResponse.Result)
     
 
-
+	fmt.Println(resultStr)
 	
-
-
-	
-
-
 	return resultStr.String(), nil
 }

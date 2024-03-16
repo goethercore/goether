@@ -107,7 +107,7 @@ func StreamMempoolTransactions(wssURL string, ch chan string) {
 	fmt.Println("Closing WebSocket connection...")
 }
 
-func ContractTransactionsMempool(wssURL string, contractAddress string, ch chan string) {
+func ContractMempoolTransactions(wssURL string, contractAddress string, ch chan string) {
 
 	c,err:= mempool_core.StreamTransactionsMempoolCall(wssURL)
 	if err != nil {

@@ -1,4 +1,4 @@
-package address_core
+package block_core
 
 import (
 	"encoding/json"
@@ -8,14 +8,16 @@ import (
 	"github.com/goethercore/goether/utils"
 )
 
-func GetAddressTXCount(rpc string, address string) (string, error) {
+func GetBlockTXCountByIndex(rpc string, hash string) (string, error) {
+	//"https://bsc.meowrpc.com"
 	// Define the URL you want to send a POST request to
 	url := rpc
+
 	// Create a JSON-RPC request struct
 	request := types.JSONRPCRequest{
 		JSONRPC: "2.0",
-		Method:  "eth_getTransactionCount",
-		Params:  []interface{}{address, "latest"},
+		Method:  "eth_getBlockTransactionCountByHash",
+		Params:  []interface{}{hash},
 		ID:      123,
 	}
 
@@ -46,16 +48,15 @@ func GetAddressTXCount(rpc string, address string) (string, error) {
 		return "", err
 	}
 
-
-	resultStr,_ := utils.ConvertHexToBigInt( parsedResponse.Result)
-    
-
-
-	
+	result, err := utils.DecodeBig(parsedResponse.Result)
+	if err != nil {
+		return "", err
+	}
 
 
-	
+	// precision := 2
+	resultStr := result.String()
 
 
-	return resultStr.String(), nil
+	return resultStr, nil
 }

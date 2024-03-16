@@ -9,7 +9,7 @@ import (
 )
 
 func GetBlockTXCountByHash(rpc string, hash string) (string, error) {
-	//"https://bsc.meowrpc.com"
+
 	// Define the URL you want to send a POST request to
 	url := rpc
 
@@ -48,15 +48,12 @@ func GetBlockTXCountByHash(rpc string, hash string) (string, error) {
 		return "", err
 	}
 
-	result, err := utils.DecodeBig(parsedResponse.Result)
+	result, err := utils.ConvertHexToBigInt(parsedResponse.Result)
 	if err != nil {
 		return "", err
 	}
 
-
-	// precision := 2
 	resultStr := result.String()
-
 
 	return resultStr, nil
 }

@@ -7,11 +7,10 @@ import (
 	"math/big"
 	"strconv"
 	"strings"
-
 )
 
-
-func FormatEther(hex string,precision ...int)(string, error) {
+//This util converts Hex value to ethers and return it as ether format in 18 decimals
+func FormatHexToEther(hex string,precision ...int)(string, error) {
 
 	result, err := DecodeBig(hex)
 	if err != nil {
@@ -33,7 +32,7 @@ func FormatEther(hex string,precision ...int)(string, error) {
 	return etherStr, nil
 }
 
-
+// This util converts ether value to wei in 18 decimals by default if the precision is not specified
 func ParseEther(big string,precision ...int)(string, error) {
 	// Default precision to 8 if not provided
 	if len(precision) == 0 {
@@ -47,6 +46,22 @@ func ParseEther(big string,precision ...int)(string, error) {
 
 	return etherStr, nil
 }
+
+
+//This function converts ether to wei
+func EtherToWei(amountStr string) (*big.Int, error) {
+	// Parse amount string into big.Float
+	amount, _, err := big.ParseFloat(amountStr, 10, 0, big.ToNearestEven)
+	if err != nil {
+		return nil, err
+	}
+
+	// Convert etherAmount to Wei (multiply by 10^18)
+	weiAmount := new(big.Int)
+	weiAmount.SetString(amount.Text('f', 18), 10)
+	return weiAmount, nil
+}
+
 
 func HexToDecimal(hexStr string) (*big.Int, error) {
 	// Remove the "0x" prefix if present
@@ -228,4 +243,20 @@ func FormatHex(hex string)(string, error) {
 		return "", err
 	}
 	return result.String(), nil
+}
+
+func ConvertHexToBigInt(hexStr string) (*big.Int, error) {
+	// Remove "0x" prefix from hex string
+	hexStr = hexStr[2:]
+
+	// Convert hexadecimal string to big.Int
+	balanceBigInt := new(big.Int)
+	_, success := balanceBigInt.SetString(hexStr, 16)
+	if !success {
+		return nil, fmt.Errorf("Failed to parse hex string: %s", hexStr)
+	}
+
+	// Convert big.Int to string
+	resultStr := balanceBigInt
+	return resultStr, nil
 }

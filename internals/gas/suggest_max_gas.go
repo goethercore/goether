@@ -1,4 +1,4 @@
-package internals
+package gas
 
 import (
 	"encoding/json"
@@ -7,7 +7,7 @@ import (
 	"github.com/goethercore/goether/types" // Import the JSONRPC package
 )
 
-func GasPrice(rpc string) (string, error) {
+func SuggestGasPrice(rpc string) (string, error) {
 	//"https://bsc.meowrpc.com"
 	// Define the URL you want to send a POST request to
 	url := rpc
@@ -15,7 +15,7 @@ func GasPrice(rpc string) (string, error) {
 // Create a JSON-RPC request struct with an empty array for Params
 request := types.JSONRPCRequest{
     JSONRPC: "2.0",
-    Method:  "eth_gasPrice",
+    Method:  "eth_maxPriorityFeePerGas",
     Params:  []interface{}{},
     ID:      123,
 }
@@ -28,18 +28,8 @@ request := types.JSONRPCRequest{
 	if err != nil {
 		return "", err
 	}
-
-
-
-	// Define a struct to represent the JSON response
-	type JSONResponse struct {
-		JSONRPC string `json:"jsonrpc"`
-		ID      int    `json:"id"`
-		Result  string `json:"result"`
-	}
-
 	// Create a variable to hold the JSON response
-	var parsedResponse JSONResponse
+	var parsedResponse types.JSONRPCResult
 
 	// Parse the JSON response into the struct
 	err = json.Unmarshal([]byte(response), &parsedResponse)
@@ -47,19 +37,10 @@ request := types.JSONRPCRequest{
 		return "", err
 	}
 
-	result, err := utils.DecodeBig(parsedResponse.Result)
-	if err != nil {
-		return "", err
-	}
 
-	denominatorStr := "1000000000000000000"
-	// precision := 2
-	resultStr := result.String()
-	//setting the precision to 18 is not compulsory, buut it defaults to 18 
-	ethbalance, err := utils.DivideLargeNumbers(resultStr, denominatorStr,18)
-	if err != nil {
-		return "", err
-	}
+	resultStr,_ := utils.ConvertHexToBigInt( parsedResponse.Result)
+    
 
-	return ethbalance, nil
+	
+	return resultStr.String(), nil
 }

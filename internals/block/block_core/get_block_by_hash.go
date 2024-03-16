@@ -2,7 +2,6 @@ package block_core
 
 import (
 	"encoding/json"
-	//"fmt"
 
 	"github.com/goethercore/goether/rpc_calls"
 	"github.com/goethercore/goether/types" // Import the JSONRPC package

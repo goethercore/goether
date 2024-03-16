@@ -9,7 +9,14 @@ type JSONRPCRequest struct {
 }
 
 type JSONRPCResult struct {
-	Id      int    `json:"id"`
-	Jsonrpc string `json:"jsonrpc"`
+	ID     int    `json:"id"`
+	JSONRPC string `json:"jsonrpc"`
+	Error   *RPCError       `json:"error"`
 	Result  string `json:"result"`
+}
+
+// Ethereum RPC error structure
+type RPCError struct {
+    Code    int    `json:"code"`
+    Message string `json:"message"`
 }

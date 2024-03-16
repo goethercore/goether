@@ -2,24 +2,9 @@ package block
 
 import (
 	"encoding/json"
-
-	"github.com/goethercore/goether/internals"
 	"github.com/goethercore/goether/internals/block/block_core"
 	"github.com/goethercore/goether/types"
 )
-func GetGasPrice(rpc string) (string, error) {
-	//"https://bsc.meowrpc.com"
-	walletBalance, err := internals.GasPrice(rpc)
-
-	if err != nil {
-		// Return an error if there's a problem fetching the balance
-
-	}
-
-	// Return the JSON-encoded response as a []byte
-	return walletBalance, nil
-
-}
 // GetTransactionByHash retrieves a transaction by its hash using the provided RPC URL.
 func GetBlockByHash(rpc string, hash string) ([]byte, error) {
 	// Call the address.GetTransactionByHash function to fetch the transaction data
@@ -36,7 +21,7 @@ func GetBlockByHash(rpc string, hash string) ([]byte, error) {
 		Result:  block.Result,
 	}
 	// Marshal the response to JSON
-	responseJSON, err := json.Marshal(blockData)
+	responseJSON, err := json.Marshal(blockData.Result)
 	if err != nil {
 
 		// Return an error if there's a problem fetching the balance

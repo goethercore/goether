@@ -2,9 +2,9 @@ package address_core
 
 import (
 	"encoding/json"
-	"github.com/goethercore/goether/utils"
 	"github.com/goethercore/goether/rpc_calls"
 	"github.com/goethercore/goether/types" // Import the JSONRPC package
+	"github.com/goethercore/goether/utils"
 )
 
 func GetAddressBalance(rpc string, address string) (string, error) {
@@ -31,15 +31,8 @@ func GetAddressBalance(rpc string, address string) (string, error) {
 
 
 
-	// Define a struct to represent the JSON response
-	type JSONResponse struct {
-		JSONRPC string `json:"jsonrpc"`
-		ID      int    `json:"id"`
-		Result  string `json:"result"`
-	}
-
 	// Create a variable to hold the JSON response
-	var parsedResponse JSONResponse
+	var parsedResponse types.JSONRPCResult
 
 	// Parse the JSON response into the struct
 	err = json.Unmarshal([]byte(response), &parsedResponse)
@@ -47,19 +40,14 @@ func GetAddressBalance(rpc string, address string) (string, error) {
 		return "", err
 	}
 
-	result, err := utils.DecodeBig(parsedResponse.Result)
-	if err != nil {
-		return "", err
-	}
+	resultStr,_ := utils.ConvertHexToBigInt( parsedResponse.Result)
 
 	denominatorStr := "1000000000000000000"
-	// precision := 2
-	resultStr := result.String()
 	//setting the precision to 18 is not compulsory, but it defaults to 18 
-	ethbalance, err := utils.DivideLargeNumbers(resultStr, denominatorStr,18)
+	ethbalance, err := utils.DivideLargeNumbers(resultStr.String(), denominatorStr,18)
 	if err != nil {
 		return "", err
 	}
-
+	
 	return ethbalance, nil
 }

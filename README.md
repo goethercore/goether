@@ -3,7 +3,7 @@
 
 # Goether [![Go Reference](https://pkg.go.dev/badge/github.com/goethercore/goether@v0.0.4.svg)](https://pkg.go.dev/github.com/goethercore/goether@v0.0.4)
 
-goether is a Go package designed to provide various functionalities related to EVM blockchains. This package offers capabilities such as interacting with contracts, exploring blocks, monitoring mempool transactions in real-time, and more. Whether you're building decentralized applications or exploring blockchain data, geth-lte aims to simplify your development process.
+goether is a Go package designed to provide various functionalities related to EVM blockchains. This package offers capabilities such as interacting with contracts, exploring blocks, monitoring mempool transactions in real-time, and more. Whether you're building decentralized applications or exploring blockchain data, goether aims to simplify your development process.
 
 Don't forget to star ⭐️ the repo
 

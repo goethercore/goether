@@ -2,7 +2,6 @@ package block_core
 
 import (
 	"encoding/json"
-
 	"github.com/goethercore/goether/rpc_calls"
 	"github.com/goethercore/goether/types" // Import the JSONRPC package
 	"github.com/goethercore/goether/utils"
@@ -48,11 +47,11 @@ request := types.JSONRPCRequest{
 		return "", err
 	}
 
-	result, err := utils.DecodeBig(parsedResponse.Result)
+	result, err := utils.ConvertHexToBigInt(parsedResponse.Result)
 	if err != nil {
 		return "", err
 	}
 
-	
+
 	return result.String(), nil
 }
