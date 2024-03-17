@@ -8,7 +8,7 @@ import (
 
 )
 
-func Call(rpc string, abi map[string]string, contractAddress string,address string, data map[string]interface{}) (string, error) {
+func Read(rpc string, abi map[string]string, contractAddress string,address string, data map[string]interface{}) (string, error) {
 	// Define the RPC string
 
 	functionName := data["functionName"].(string)
@@ -39,7 +39,7 @@ func Call(rpc string, abi map[string]string, contractAddress string,address stri
 
 }
 
-func Mutate(rpcURL string,privateKey string,  ABI map[string]string, contractAddress string, data map[string]interface{}) (string, error) {
+func Write(rpcURL string,privateKey string,  ABI map[string]string, contractAddress string, data map[string]interface{}) (string, error) {
 	// Define the RPC string
 
 	functionName := data["functionName"].(string)
